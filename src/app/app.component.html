@@ -1,63 +1,76 @@
 <div class="container">
+  <h1>People Picker Example</h1>
 
-</div>
-<h1>Edit Candidates</h1>
+  <app-peoplepicker></app-peoplepicker>
 
-<form [formGroup]="nominationForm">
-  <mat-card>
-    <h2>Candidates</h2>
-  </mat-card>
+  <hr />
 
-  <div formArrayName="candidates">
-    <div *ngFor="let item of candidates.controls; let candidateIndex=index" [formGroupName]="candidateIndex">
-      <mat-card>
-        <div class="row">
-          <div class="col-sm-4">
-            <mat-form-field>
-              <input matInput placeholder="Enter your name" formControlName="name" required>
-              <mat-error *ngIf="item.get('name').invalid">Name is required</mat-error>
-            </mat-form-field>
+  <h1>Repeating Form Example</h1>
+
+  <form [formGroup]="nominationForm">
+    <mat-card>
+      <h2>Candidates</h2>
+    </mat-card>
+    <div formArrayName="candidates">
+      <div *ngFor="let item of candidates.controls; let candidateIndex=index" [formGroupName]="candidateIndex">
+        <mat-card>
+          <div class="row">
+            <div class="col-sm-4">
+              <mat-form-field class="full-width">
+                <input type="text" placeholder="Candidato" aria-label="Candidato" matInput formControlName="name" [matAutocomplete]="auto" (keyup)="filterSPUserSingle($event)">
+                <mat-error *ngIf="item.get('name').invalid">Name is required</mat-error>
+                <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+                  <mat-option *ngFor="let option of ppUserOptions" [value]="option">
+                    <div class="row">
+                      <div class="col-sm-2">
+                        <img class="user-img"
+                          src="https://evertecgroup.sharepoint.com/_layouts/15/userphoto.aspx?size=S&accountname={{option.EntityData.Email}}" />
+                      </div>
+                      <div class="col-sm-10">
+                        {{option.DisplayText}}
+                      </div>
+                    </div>
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field>
+                <input matInput placeholder="Enter your ET" formControlName="et" required>
+                <mat-error *ngIf="item.get('et').invalid">ET is required</mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-4">
+              <mat-form-field>
+                <input matInput placeholder="Enter your Dept" formControlName="dept" required>
+                <mat-error *ngIf="item.get('dept').invalid">Dept is required</mat-error>
+              </mat-form-field>
+
+              <button type="button" (click)="deleteCandidate(candidateIndex)">Delete</button>
+            </div>
           </div>
-          <div class="col-sm-4">
-            <mat-form-field>
-              <input matInput placeholder="Enter your ET" formControlName="et" required>
-              <mat-error *ngIf="item.get('et').invalid">ET is required</mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col-sm-4">
-            <mat-form-field>
-              <input matInput placeholder="Enter your Dept" formControlName="dept" required>
-              <mat-error *ngIf="item.get('dept').invalid">Dept is required</mat-error>
-            </mat-form-field>
+        </mat-card>
+      </div>
 
-            <button type="button" (click)="deleteCandidate(candidateIndex)">Delete</button>
-          </div>
-        </div>
-      </mat-card>
+      <button type="button" (click)="addCandidate()">Add</button>
     </div>
 
-    <button type="button" (click)="addCandidate()">Add</button>
-  </div>
-
-  <div class="row">
     <mat-card>
-      <div class="col-sm-6">
-
-      </div>
-      <div class="col-sm-6">
-
-      </div>
+      <div class="row">
+          <div class="col-sm-6">
+            <label>
+              Tier: <input formControlName="tier" />
+            </label>
+          </div>
+          <div class="col-sm-6">
+            <label>
+              Valor: <input formControlName="valor" />
+            </label>
+          </div>
+        </div>
     </mat-card>
-  </div>
 
-  <label>
-    Tier: <input formControlName="tier" />
-  </label>
+  </form>
 
-  <label>
-    Valor: <input formControlName="valor" />
-  </label>
-
-</form>
-
-{{ this.nominationForm.value | json }}
+  {{ this.nominationForm.value | json }}
+</div>

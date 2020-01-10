@@ -1,5 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+//@import '~bootstrap/dist/css/bootstrap.min.css';
 
 html, body { height: 100%; }
 body { margin: 0; }
+
+input:not([type]), input[type=text] {
+  border: none !important;
+  background-color: transparent !important;
+}
+
+mat-card {
+  margin-bottom: 1rem;
+}
+
+.full-width {
+  width: 100%;
+}

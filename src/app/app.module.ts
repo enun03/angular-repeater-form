@@ -1,23 +1,33 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from '../assets/material-ui/material-module';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { PeoplepickerComponent } from './components/peoplepicker/peoplepicker.component';
+import { PeoplePickerService } from './services/people-picker.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    PeoplepickerComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    AutoCompleteModule
   ],
-  providers: [],
+  providers: [PeoplePickerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
