@@ -76,10 +76,6 @@ export class AppComponent implements OnInit {
 
   filterSPUserSingle(event) {
     this.filterSPUsers(event.target.value);
-    // setTimeout(() => {
-    //   event.target.blur();
-    //   event.target.focus();
-    // }, 1500);
   }
 
   filterSPUsers(query: string) {
